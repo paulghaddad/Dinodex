@@ -1,4 +1,5 @@
 import csv
+from openpyxl import Workbook
 
 dinosaurs = []
 
@@ -22,3 +23,14 @@ dict_writer = csv.DictWriter(open("dinosaur_output.csv", "w"), fieldnames=fields
 dict_writer.writeheader()
 dict_writer.writerows(dinosaurs[1:])
 del dict_writer
+
+wb = Workbook()
+ws = wb.active
+ws.title = "Dinosaur Data"
+
+ws.append(fields)
+
+for row in dinosaurs:
+    ws.append(list(row.values()))
+
+wb.save("dinosaur_output.xlsx")
