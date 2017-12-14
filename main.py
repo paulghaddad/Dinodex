@@ -1,5 +1,6 @@
 import csv
 from openpyxl import Workbook
+from prettytable import PrettyTable
 
 dinosaurs = []
 
@@ -18,12 +19,14 @@ with open("dinodex.csv") as csvfile:
 fields = ['NAME', 'PERIOD', 'CONTINENT', 'DIET', 'WEIGHT_IN_LBS', 'WALKING',
           'DESCRIPTION']
 
+# Output to a CSV
 dict_writer = csv.DictWriter(open("dinosaur_output.csv", "w"), fieldnames=fields)
 
 dict_writer.writeheader()
 dict_writer.writerows(dinosaurs[1:])
 del dict_writer
 
+# Output to an Excel file
 wb = Workbook()
 ws = wb.active
 ws.title = "Dinosaur Data"
@@ -34,3 +37,14 @@ for row in dinosaurs:
     ws.append(list(row.values()))
 
 wb.save("dinosaur_output.xlsx")
+
+# Ouput to the command line
+table = PrettyTable(fields)
+table.align = "l"
+
+for dinosaur in dinosaurs:
+    table.add_row(dinosaur.values())
+
+print("\n\n")
+print(table)
+print("\n\n")
