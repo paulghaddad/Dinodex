@@ -8,6 +8,6 @@ def export_excel(fields, data):
     ws.append(fields)
 
     for row in data:
-        ws.append(list(row.values()))
+        ws.append(list(vars(row).values()))
 
     wb.save("dinosaur_data.xlsx")

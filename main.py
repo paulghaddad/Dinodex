@@ -7,8 +7,8 @@ from export_table import export_table
 
 dinosaurs = parse_csv("dinodex.csv")
 
-fields = ['NAME', 'PERIOD', 'CONTINENT', 'DIET', 'WEIGHT_IN_LBS', 'WALKING',
-          'DESCRIPTION']
+fields = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking',
+          'description']
 
 # Output to a CSV
 export_csv(fields, dinosaurs)

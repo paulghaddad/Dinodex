@@ -5,7 +5,7 @@ def export_table(fields, data):
     table.align = "l"
 
     for dinosaur in data:
-        table.add_row(dinosaur.values())
+        table.add_row(vars(dinosaur).values())
 
     print("\n\n")
     print(table)
