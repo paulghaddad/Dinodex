@@ -7,9 +7,12 @@ from export_table import export_table
 
 parser = argparse.ArgumentParser(description='Filter some dinosaurs')
 parser.add_argument('filename', help='Input filename containing dinosaur data')
+parser.add_argument('--export', nargs='*', default='csv',
+                    choices=['csv', 'xlsx', 'json'], help='Export file type (csv, xlsx, json)')
 args = parser.parse_args()
 
 input_filename = args.filename
+export_types = args.export
 
 dinosaurs = parse_csv(input_filename)
 
@@ -17,13 +20,16 @@ fields = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking',
           'description']
 
 # Output to a CSV
-export_csv(fields, dinosaurs)
+if 'csv' in export_types:
+    export_csv(fields, dinosaurs)
 
 # Output to an Excel file
-export_excel(fields, dinosaurs)
+if 'xlsx' in export_types:
+    export_excel(fields, dinosaurs)
 
 # Output to a JSON file
-export_json(dinosaurs)
+if 'json' in export_types:
+    export_json(dinosaurs)
 
 # Ouput to the command line
 export_table(fields, dinosaurs)
