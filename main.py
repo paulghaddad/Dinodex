@@ -1,11 +1,17 @@
-import csv
+import argparse
 from csv_import import parse_csv
 from csv_export import export_csv
 from excel_export import export_excel
 from json_export import export_json
 from export_table import export_table
 
-dinosaurs = parse_csv("dinodex.csv")
+parser = argparse.ArgumentParser(description='Filter some dinosaurs')
+parser.add_argument('filename', help='Input filename containing dinosaur data')
+args = parser.parse_args()
+
+input_filename = args.filename
+
+dinosaurs = parse_csv(input_filename)
 
 fields = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking',
           'description']
