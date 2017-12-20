@@ -14,12 +14,14 @@ parser.add_argument('--biped', action='store_true', help='Filter for bipeds')
 parser.add_argument('--carnivore', action='store_true', help='Filter by carnivores')
 parser.add_argument('--period', nargs='*', choices=['cretaceous', 'permian', 'jurassic', 'oxfordian'], help='Filter by period')
 parser.add_argument('--size', choices=['big', 'small'], help='Filter for size (big or small)')
+parser.add_argument('--print_dino', help='Print information on a single dinosaur')
 args = parser.parse_args()
 
 input_filename = args.filename
 export_types = args.export
 periods = args.period
 size_filter = args.size
+print_dino = args.print_dino
 
 dinosaurs = parse_csv(input_filename)
 
@@ -35,21 +37,47 @@ if args.period:
 if size_filter:
     filtered_dinosaurs = [dinosaur for dinosaur in filtered_dinosaurs if of_size(dinosaur, size_filter)]
 
+if print_dino:
+    dinosaur_to_print = set(filter(lambda dinosaur: dinosaur.name.lower() ==
+                                   print_dino.lower(), dinosaurs)).pop()
 
-fields = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking',
+FIELDS = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking',
           'description']
 
 # Output to a CSV
 if 'csv' in export_types:
-    export_csv(fields, filtered_dinosaurs)
+    export_csv(FIELDS, filtered_dinosaurs)
 
 # Output to an Excel file
 if 'xlsx' in export_types:
-    export_excel(fields, filtered_dinosaurs)
+    export_excel(FIELDS, filtered_dinosaurs)
 
 # Output to a JSON file
 if 'json' in export_types:
     export_json(filtered_dinosaurs)
 
 # Ouput to the command line
-export_table(fields, filtered_dinosaurs)
+export_table(FIELDS, filtered_dinosaurs)
+
+# Print out single dinosaur if option provided
+
+def print_attribute(attribute):
+    if not attribute: return 'N/A'
+
+    if isinstance(attribute, set):
+        return ', '.join(attribute).capitalize()
+    else:
+        return attribute
+
+dinosaur_information = f"""
+    Information on {print_attribute(dinosaur_to_print.name)}:
+        Period: {print_attribute(dinosaur_to_print.period)}
+        Continent: {print_attribute(dinosaur_to_print.continent)}
+        Diet: {print_attribute(dinosaur_to_print.diet)}
+        Weight (lbs): {print_attribute(dinosaur_to_print.weight_in_lbs)}
+        Mode of Walking: {print_attribute(dinosaur_to_print.walking)}
+        Description: {print_attribute(dinosaur_to_print.description)}
+
+"""
+
+print(dinosaur_information)
