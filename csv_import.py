@@ -42,6 +42,14 @@ def normalize_data(row):
         if attribute == 'period':
             periods = row_with_normalized_attributes[attribute].lower()
             normalized_row[attribute] = set(re.findall(valid_periods, periods))
+        elif attribute == 'diet':
+            if row_with_normalized_attributes[attribute] == 'Yes':
+                row_with_normalized_attributes[attribute] = 'Carnivore'
+            if row_with_normalized_attributes[attribute] == 'No':
+                row_with_normalized_attributes[attribute] = 'Herbivore'
+
+            normalized_row[attribute] = row_with_normalized_attributes[attribute]
+
         else:
             normalized_row[attribute] = row_with_normalized_attributes[attribute]
 
