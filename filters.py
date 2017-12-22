@@ -1,7 +1,7 @@
 carnivores = ('Carnivore', 'Insectivore', 'Piscivore')
 
 def biped(dinosaur):
-    return dinosaur.walking == 'Biped'
+    return dinosaur.walking_mode == 'Biped'
 
 def carnivore(dinosaur):
     if dinosaur.diet in carnivores:
@@ -9,7 +9,7 @@ def carnivore(dinosaur):
     return False
 
 def in_period(dinosaur, period):
-    return bool(set(period) & dinosaur.period)
+    return bool(set(period) & set(dinosaur.period))
 
 def of_size(dinosaur, size):
     if size == 'big':

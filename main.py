@@ -39,7 +39,7 @@ if size_filter:
 
 if print_dino:
     dinosaur_to_print = set(filter(lambda dinosaur: dinosaur.name.lower() ==
-                                   print_dino.lower(), dinosaurs)).pop()
+                                   print_dino.lower(), dinosaurs))
 
 FIELDS = ['name', 'period', 'continent', 'diet', 'weight', 'walking_mode',
           'description']
@@ -70,15 +70,16 @@ def print_attribute(attribute):
         return attribute
 
 
-if print_dino:
+if print_dino and dinosaur_to_print:
+    dinosaur = dinosaur_to_print.pop()
     dinosaur_information = f"""
-        Information on {print_attribute(dinosaur_to_print.name)}:
-            Period: {print_attribute(dinosaur_to_print.period)}
-            Continent: {print_attribute(dinosaur_to_print.continent)}
-            Diet: {print_attribute(dinosaur_to_print.diet)}
-            Weight (lbs): {print_attribute(dinosaur_to_print.weight)}
-            Mode of Walking: {print_attribute(dinosaur_to_print.walking_mode)}
-            Description: {print_attribute(dinosaur_to_print.description)}
+        Information on {print_attribute(dinosaur.name)}:
+            Period: {print_attribute(dinosaur.period)}
+            Continent: {print_attribute(dinosaur.continent)}
+            Diet: {print_attribute(dinosaur.diet)}
+            Weight (lbs): {print_attribute(dinosaur.weight)}
+            Mode of Walking: {print_attribute(dinosaur.walking_mode)}
+            Description: {print_attribute(dinosaur.description)}
 
     """
 
