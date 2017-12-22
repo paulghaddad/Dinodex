@@ -41,7 +41,7 @@ if print_dino:
     dinosaur_to_print = set(filter(lambda dinosaur: dinosaur.name.lower() ==
                                    print_dino.lower(), dinosaurs)).pop()
 
-FIELDS = ['name', 'period', 'continent', 'diet', 'weight_in_lbs', 'walking_mode',
+FIELDS = ['name', 'period', 'continent', 'diet', 'weight', 'walking_mode',
           'description']
 
 # Output to a CSV
@@ -76,8 +76,8 @@ if print_dino:
             Period: {print_attribute(dinosaur_to_print.period)}
             Continent: {print_attribute(dinosaur_to_print.continent)}
             Diet: {print_attribute(dinosaur_to_print.diet)}
-            Weight (lbs): {print_attribute(dinosaur_to_print.weight_in_lbs)}
-            Mode of Walking: {print_attribute(dinosaur_to_print.walking)}
+            Weight (lbs): {print_attribute(dinosaur_to_print.weight)}
+            Mode of Walking: {print_attribute(dinosaur_to_print.walking_mode)}
             Description: {print_attribute(dinosaur_to_print.description)}
 
     """
